@@ -7,6 +7,40 @@ import EventCard from '../components/events/EventCard';
 const HomePage: React.FC = () => {
   const { featuredEvents, events } = useEvents();
 
+  // Hardcoded featured events
+  const hardcodedFeaturedEvents = [
+    {
+      id: 'hackathon-1',
+      title: 'Annual College Hackathon 2024',
+      date: '2024-03-15',
+      location: 'Tech Innovation Center',
+      is_virtual: false,
+      type: 'hackathon',
+      description: 'Join us for 48 hours of coding, learning, and networking!',
+      featured: true
+    },
+    {
+      id: 'techtalk-1',
+      title: 'AI & Machine Learning Workshop',
+      date: '2024-03-20',
+      location: 'Virtual',
+      is_virtual: true,
+      type: 'tech_talk',
+      description: 'Learn about the latest developments in AI and ML',
+      featured: true
+    },
+    {
+      id: 'conference-1',
+      title: 'Tech Leadership Summit 2024',
+      date: '2024-04-05',
+      location: 'Grand Conference Hall',
+      is_virtual: false,
+      type: 'conference',
+      description: 'Annual gathering of tech leaders and innovators',
+      featured: true
+    }
+  ];
+
   // Get upcoming events (next 3)
   const upcomingEvents = [...events]
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -59,7 +93,7 @@ const HomePage: React.FC = () => {
                   <h3 className="text-2xl font-bold">Latest Event Highlights</h3>
                 </div>
                 <div className="space-y-4">
-                  {featuredEvents.slice(0, 3).map((event) => (
+                  {hardcodedFeaturedEvents.map((event) => (
                     <Link
                       key={event.id}
                       to={`/events/${event.id}`}
@@ -80,8 +114,9 @@ const HomePage: React.FC = () => {
                           </h4>
                           <div className="flex items-center text-sm text-purple-200">
                             <MapPin size={14} className="mr-1" />
-                            <span className="truncate">{event.isVirtual ? 'Virtual' : event.location}</span>
+                            <span className="truncate">{event.is_virtual ? 'Virtual' : event.location}</span>
                           </div>
+                          <p className="text-sm text-purple-200 mt-1">{event.description}</p>
                         </div>
                         <ExternalLink 
                           size={16} 
